@@ -31,7 +31,7 @@ export default function VoiceMemoRecorder({
       }}
       className={`${
         isRecording ? 'bg-red-500' : 'bg-blue-500'
-      } text-white font-bold py-2 px-4 rounded-full`}
+      } text-white font-medium py-2 px-4 rounded-full`}
     >
       Record {isRecording ? 'Stop' : 'Start'}
     </button>

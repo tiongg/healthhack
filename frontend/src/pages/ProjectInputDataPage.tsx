@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 import { useImmer } from 'use-immer';
 import Modal from '../components/Modal.tsx';
 import VoiceMemoRecorder from '../components/VoiceMemoRecorder.tsx';
@@ -11,6 +12,7 @@ import {
   VisitType,
 } from '../constants/visits.type.ts';
 import { axiosInstance } from '../utils/axios-instance.ts';
+import { waitFor } from '../utils/wait-for.ts';
 
 type InputFormData = {
   patientId: string;
@@ -40,9 +42,34 @@ export default function ProjectInputDataPage() {
       });
     },
   });
+
+  const {
+    mutateAsync: generateExcelAsync,
+    isPending: isExcelDataPending,
+    isSuccess: isExcelDataSuccess,
+  } = useMutation({
+    mutationFn: () => {
+      return axiosInstance.post('/excel/generate', {
+        visit: formData.visit,
+        patientId: formData.patientId,
+        wsData: dataMappings?.data,
+        projectId,
+      });
+    },
+  });
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const canTranscribe = formData.patientId && formData.transcription;
+  function getGeneratingState() {
+    if (isExcelDataPending) {
+      return 'Loading...';
+    }
+    if (isExcelDataSuccess) {
+      return 'Success!';
+    }
+    return 'Looks good!';
+  }
 
   return (
     <main className="min-h-screen flex flex-col mx-8 my-auto gap-2">
@@ -71,21 +98,15 @@ export default function ProjectInputDataPage() {
 
         <div>
           <p>Visit</p>
-          <select
-            className="border border-gray-300 rounded-md w-full p-2"
-            value={formData.visit}
-            onChange={e =>
+          <Select
+            options={VISIT_OPTIONS}
+            defaultValue={VISIT_OPTIONS[0]}
+            onChange={e => {
               updateFormData(draft => {
-                draft.visit = e.target.value as VisitType;
-              })
-            }
-          >
-            {VISIT_OPTIONS.map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+                draft.visit = e!.value;
+              });
+            }}
+          />
         </div>
 
         <div className="flex flex-col gap-1">
@@ -113,7 +134,7 @@ export default function ProjectInputDataPage() {
 
       <button
         className={`
-         text-white rounded-full py-2 px-4 
+         text-white rounded-full py-2 px-4 font-medium
           ${canTranscribe ? 'bg-blue-500' : 'bg-gray-300'}
         `}
         disabled={!canTranscribe}
@@ -154,7 +175,7 @@ export default function ProjectInputDataPage() {
 
           <div className="flex gap-4 mt-auto">
             <button
-              className="rounded-full bg-red-500 text-white py-2 px-4 flex-1"
+              className="rounded-full bg-red-500 text-white py-2 px-4 flex-1 font-medium"
               onClick={() => {
                 setModalOpen(false);
               }}
@@ -162,24 +183,17 @@ export default function ProjectInputDataPage() {
               Retranscribe
             </button>
             <button
-              className="rounded-full bg-blue-500 text-white py-2 px-4 flex-1"
+              className="rounded-full bg-blue-500 text-white py-2 px-4 flex-1 font-medium"
               onClick={async () => {
-                const { data: res } = await axiosInstance.post(
-                  '/excel/generate',
-                  {
-                    visit: formData.visit,
-                    patientId: formData.patientId,
-                    wsData: dataMappings?.data,
-                    projectId,
-                  }
-                );
+                const { data: res } = await generateExcelAsync();
 
                 if (res.success) {
+                  await waitFor(2000);
                   navi(`/project/${projectId}`);
                 }
               }}
             >
-              Looks good!
+              {getGeneratingState()}
             </button>
           </div>
         </div>
