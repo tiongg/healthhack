@@ -1,0 +1,143 @@
+{
+  "subject": {
+    "column": "A",
+    "type": "string",
+    "alternativeNames": [
+      "patient"
+    ]
+  },
+  "visit": {
+    "first": {
+      "weight": {
+        "column": "B",
+        "type": "number"
+      },
+      "height": {
+        "column": "C",
+        "type": "number"
+      },
+      "bmi": {
+        "column": "D",
+        "type": "number"
+      },
+      "QOL": {
+        "column": "E",
+        "type": "number"
+      },
+      "VLCD": {
+        "column": "F",
+        "type": "number",
+        "alternativeNames": [
+          "Weeks of Low calorie diet"
+        ]
+      },
+      "operationDate": {
+        "column": "G",
+        "type": "date"
+      },
+      "surgeonName": {
+        "column": "H",
+        "type": "string"
+      },
+      "diabetes": {
+        "column": "I",
+        "type": "boolean"
+      },
+      "HBP": {
+        "column": "J",
+        "type": "boolean",
+        "alternativeNames": [
+          "High Blood Pressure"
+        ]
+      },
+      "cholestrol": {
+        "column": "K",
+        "type": "boolean"
+      },
+      "HBA1C": {
+        "column": "L",
+        "type": "number"
+      },
+      "diabetesMedication": {
+        "column": "M",
+        "type": "boolean"
+      }
+    },
+    "operation": {
+      "weight": {
+        "column": "O",
+        "type": "number"
+      },
+      "bmi": {
+        "column": "P",
+        "type": "number"
+      }
+    },
+    "2weeks": {
+      "weight": {
+        "column": "R",
+        "type": "number"
+      },
+      "bmi": {
+        "column": "S",
+        "type": "number"
+      }
+    },
+    "6weeks": {
+      "weight": {
+        "column": "T",
+        "type": "number"
+      },
+      "bmi": {
+        "column": "U",
+        "type": "number"
+      }
+    },
+    "3months": {
+      "weight": {
+        "column": "V",
+        "type": "number"
+      },
+      "bmi": {
+        "column": "W",
+        "type": "number"
+      }
+    },
+    "6months": {
+      "weight": {
+        "column": "X",
+        "type": "number"
+      },
+      "bmi": {
+        "column": "Y",
+        "type": "number"
+      },
+      "HBA1C": {
+        "column": "Z",
+        "type": "number"
+      },
+      "LDL": {
+        "column": "AA",
+        "type": "string"
+      },
+      "totalCholestrol": {
+        "column": "AB",
+        "type": "number",
+        "alternativeNames": [
+          "cholestrol"
+        ]
+      },
+      "QOL": {
+        "column": "AC",
+        "type": "number"
+      },
+      "diabetesMedication": {
+        "column": "AD",
+        "type": "number",
+        "alternativeNames": [
+          "DM"
+        ]
+      }
+    }
+  }
+}
