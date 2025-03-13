@@ -68,70 +68,70 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="flex justify-between m-6">
-        <div className="flex gap-3 items-center">
+    <div className='min-h-screen bg-white'>
+      <div className='flex justify-between m-6'>
+        <div className='flex gap-3 items-center'>
           <RxAvatar size={40} />
           <div>
-            <p className="text-sm text-blue-500">Welcome Back,</p>
-            <p className="text-lg font-semibold">
+            <p className='text-sm text-blue-500'>Welcome Back,</p>
+            <p className='text-lg font-semibold'>
               {session?.user.user_metadata.username}
             </p>
           </div>
         </div>
-        <div className="flex gap-4 items-center">
-          <Bell className="text-gray-600" />
-          <Settings className="text-gray-600" />
+        <div className='flex gap-4 items-center'>
+          <Bell className='text-gray-600' />
+          <Settings className='text-gray-600' />
         </div>
       </div>
 
-      <div className="flex justify-center">
+      <div className='flex justify-center'>
         <input
-          placeholder="Search documents..."
-          className="py-2 px-4 mt-0 mx-6 my-4 border rounded-full w-full"
+          placeholder='Search documents...'
+          className='py-2 px-4 mt-0 mx-6 my-4 border rounded-full w-full'
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-6 px-4 py-12 bg-blue-100">
+      <div className='grid grid-cols-2 gap-4 mb-6 px-4 py-12 bg-blue-100'>
         <div
-          className="flex flex-col items-center gap-4"
+          className='flex flex-col items-center gap-4'
           onClick={() => {
             navi('/project-creation');
           }}
         >
-          <div className="flex items-center m-auto p-4 bg-white aspect-[10/16] w-[140px] justify-center">
-            <FilePlus2 size={48} className="text-gray-600" />
+          <div className='flex items-center m-auto p-4 bg-white aspect-[10/16] w-[140px] justify-center'>
+            <FilePlus2 size={48} className='text-gray-600' />
           </div>
-          <div className="bg-white py-2 px-4 rounded-full">
-            <p>From Template</p>
+          <div className='bg-white py-2 px-4 rounded-full'>
+            <p>Create New</p>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex items-center m-auto p-4 bg-white aspect-[10/16] w-[140px] justify-center">
-            <TbFileImport size={48} className="text-gray-600" />
+        <div className='flex flex-col items-center gap-4'>
+          <div className='flex items-center m-auto p-4 bg-white aspect-[10/16] w-[140px] justify-center'>
+            <TbFileImport size={48} className='text-gray-600' />
           </div>
-          <div className="bg-white py-2 px-4 rounded-full">
+          <div className='bg-white py-2 px-4 rounded-full'>
             <p>Import Sheet</p>
           </div>
         </div>
       </div>
 
-      <div className="mx-6">
-        <div className="flex flex-col justify-between my-2">
-          <p className="text-xl font-semibold my-auto">Recent documents</p>
+      <div className='mx-6'>
+        <div className='flex flex-col justify-between my-2'>
+          <p className='text-xl font-semibold my-auto'>Recent documents</p>
         </div>
 
         {Object.entries(groupedProjects ?? {})
           .filter(([_, projects]) => projects.length > 0)
           .map(([date, projects]) => (
-            <div key={date} className="mb-3">
-              <h3 className="mb-2 font-semibold">{date}</h3>
+            <div key={date} className='mb-3'>
+              <h3 className='mb-2 font-semibold'>{date}</h3>
               {projects.map(
                 ({ lastUpdated, projectName, id, lastUpdatedBy }, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between py-2 px-3 bg-blue-100 rounded-full mb-2"
+                    className='flex items-center justify-between py-2 px-3 bg-blue-100 rounded-full mb-2'
                     onClick={() => {
                       // Fake data doesn't have id
                       if (id) {
@@ -139,11 +139,11 @@ export default function HomePage() {
                       }
                     }}
                   >
-                    <div className="flex items-center gap-2">
-                      <FileSpreadsheet className="text-gray-600" size={30} />
-                      <div className="flex flex-col pt-[2px]">
-                        <p className="leading-none">{projectName}</p>
-                        <p className="text-xs text-gray-500">
+                    <div className='flex items-center gap-2'>
+                      <FileSpreadsheet className='text-gray-600' size={30} />
+                      <div className='flex flex-col pt-[2px]'>
+                        <p className='leading-none'>{projectName}</p>
+                        <p className='text-xs text-gray-500'>
                           Last updated {lastUpdated.fromNow()} by{' '}
                           {lastUpdatedBy ?? 'you'}
                         </p>
